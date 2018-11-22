@@ -20,7 +20,7 @@
 	   reservaciones=malloc(sizeof(struct reservacion)*10);
 	    struct reservacion *p_reservaciones;
 	    //p_reservaciones=reservaciones;
-	   int cantidadReservaciones;
+	   int cantidadReservaciones=0;
 	   char opcion;
 	   
 		char nombre[30];
@@ -49,25 +49,52 @@
 	getchar();
 	
 	switch (toupper(opcion)) {
-		case 'A':		
+		case 'A':	
+			if(cantidadReservaciones==0)
+			{//aqui se hace la primera reservacion
+									printf("esta es la primera reservacion:\n");
+									printf("alta de reservacion\n:");
+									printf("deme el nombre de cliente:\n");
+									gets(nombre);
+									/* getchad(); */
+									printf("ingrese correo:\n");
+									gets(correo);
+									/* getchad(); */
+								    printf("ingrese la hora de su reservacion :\n");
+									scanf("%d", &hora);
+									getchar();
+									if( hora >= 8 && hora <= 12){
+										strcpy(turno, "matutino");
+									}
+									if( hora >= 13 && hora <= 16){
+										strcpy(turno, "vespertino");
+									}
+									if( hora >= 17 && hora <= 23){
+										strcpy(turno, "nocturno");
+									}
+									printf("ingrese su numero de telefono:\n");
+									gets(telefono);
+									/* getchad(); */
+									printf("ingrese la fecha de su reservacion (DD-MM-AAAA):\n");
+									gets(fecha);
+									/* printf("\n\"%s\"\n",fecha);*/
+									/* getchad(); */
+									p_reservaciones++;
+									cantidadReservaciones++;
+											
+			}
+			else
+			{
+			printf("esta es la segunda reservacion en adelante:\n");		
 			
 			printf("alta de reservacion\n:");
-			printf("Haz tu reservacion\n");
 			printf("deme el nombre de cliente:\n");
 			gets(nombre);
 			/* getchad(); */
-			printf("ingrese correo:\n");
-			gets(correo);
-			/* getchad(); */
-			printf("ingrese su numero de telefono:\n");
-			gets(telefono);
-			/* getchad(); */
-			printf("ingrese la fecha de su reservacion (DD-MM-AAAA):\n");
+			printf("ingrese fecha:\n");
 			gets(fecha);
-			/* printf("\n\"%s\"\n",fecha);*/
 			/* getchad(); */
-			
-			printf("ingrese la hora de su reservacion :\n");
+		    printf("ingrese la hora de su reservacion :\n");
 			scanf("%d", &hora);
 			getchar();
 			if( hora >= 8 && hora <= 12){
@@ -80,34 +107,47 @@
 				strcpy(turno, "nocturno");
 			}
 			
-			if(cantidadReservaciones > 0){
+		//	if(cantidadReservaciones > 0){
 				p_reservaciones = reservaciones;
 				for( i = 0; i < cantidadReservaciones; i++){
 					
-					if(strcmp(telefono,p_reservaciones->telefono) == 0){
-						if(strcmp(fecha, p_reservaciones->fecha) == 0){
-							if(strcmp(turno,p_reservaciones->turno)==0){
+					if(strcmp(nombre,p_reservaciones->nombre) >0){
+						if(strcmp(fecha, p_reservaciones->fecha) > 0){
+							if(strcmp(turno,p_reservaciones->turno)>0){
 								printf("Este turno ya ha sido apartado por este cliente\n");
 								banderaReservacion = 1;
-								break;
+								
+							}
+							else
+							{
+								printf("ingrese su numero de telefono:\n");
+								gets(telefono);
+								/* getchad(); */
+								printf("ingrese la fecha de su reservacion (DD-MM-AAAA):\n");
+								gets(fecha);
+								/* printf("\n\"%s\"\n",fecha);*/
+								/* getchad(); */
+								p_reservaciones++;	
 							}
 						}
 					}
-					p_reservaciones++;
+					
 				}
-			}
+			//}
+			
 			if(banderaReservacion == 0){
 				
 				strcpy(reservaciones[cantidadReservaciones].nombre,nombre);
 				strcpy(reservaciones[cantidadReservaciones].correo,correo);
+				strcpy(reservaciones[cantidadReservaciones].turno,turno);
+				
 				strcpy(reservaciones[cantidadReservaciones].telefono,telefono);
 				strcpy(reservaciones[cantidadReservaciones].fecha,fecha);
-				reservaciones[cantidadReservaciones].hora = hora;
-				strcpy(reservaciones[cantidadReservaciones].turno,turno);
 				reservaciones[cantidadReservaciones].vigente = 1;
 				cantidadReservaciones++;
 				printf("su reservacion ha sido agendada.\n\n");
 			}
+	}//aqui cierro el else de reservacion vacia
 			break;
 		case 'B':
 		
