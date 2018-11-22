@@ -41,8 +41,8 @@
 	printf("C> Para consulta de reservacion:\n");
 	printf("V> Para checar vigencia de reservacion:\n");
 	printf("S> Para salir:\n");
-	printf("F> Para ver todas las reservaciones:\n");
-	printf("E> para dar de baja reservaciones anteriores:\n");
+	//printf("F> Para ver todas las reservaciones:\n");
+	//printf("E> para dar de baja reservaciones anteriores:\n");
 	printf("\n");
 	
 	opcion=getchar();
@@ -160,58 +160,122 @@
 			}
 			break;
 		case 'C':
-		
-			strcpy(telefono,"");
-			strcpy(fecha,"");
-			hora = 0;
-			strcpy(turno,"");
-			i = 0;
-			banderaConsulta = 0; 
-			printf("Consulta de reservacion. \n");
-			printf("ingrese su numero de telefono:\n");
-			gets(telefono);
-			/* getchad(); */
-			printf("ingrese la fecha de su reservacion (DD-MM-AAAA):\n");
-			gets(fecha);
-			/* getchad(); */
-			printf("ingrese la hora de su reservacion :\n");
-			scanf("%d", &hora);
-			getchar();
-			if( hora >= 8 && hora <= 12){
-				strcpy(turno, "matutino");
-			}
-			if( hora >= 13 && hora <= 16){
-				strcpy(turno, "vespertino");
-			}
-			if( hora >= 17 && hora <= 20){
-				strcpy(turno, "nocturno");
-			}
-			printf("\n");
-			if(cantidadReservaciones > 0){
-				for( i = 0; i < cantidadReservaciones; i++){
+			
+			
+			do{
+			
+				printf("1.-Consultar  2.- ver total de reservaciones 3.- algo extra�o\n ");
+				opcion=getchar();
+				getchar();
+				
+				switch (toupper(opcion)) {
 					
-					if(strcmp(telefono,reservaciones[i].telefono) == 0){
-						if(strcmp(fecha, reservaciones[i].fecha) == 0){
-							if(strcmp(turno,reservaciones[i].turno)==0){
-								printf("La reservacion ha sido encontrada. Datos:\n");
-								printf("Nombre: %s\n",reservaciones[i].nombre);
-								printf("Telefono: %s\n",reservaciones[i].telefono);
-								printf("Correo: %s\n",reservaciones[i].correo);
-								printf("Fecha: %s\n",reservaciones[i].fecha);
-								printf("Hora: %d\n",reservaciones[i].hora);
-								banderaConsulta = 1;
-								break;
-							}
-						}
-					}
-				}
-			}
-			else {
-				printf("No hay reservaciones para consultar\n");
-			}
-			if(banderaConsulta == 0){
-				printf("No se ha encontrado la reservación con los datos dados.\n");
-			}
+					
+					
+									case '1':
+										strcpy(telefono,"");
+										strcpy(fecha,"");
+										hora = 0;
+										strcpy(turno,"");
+										i = 0;
+										banderaConsulta = 0; 
+										printf("Consulta de reservacion. \n");
+										printf("ingrese su numero de telefono:\n");
+										gets(telefono);
+										/* getchad(); */
+										printf("ingrese la fecha de su reservacion (DD-MM-AAAA):\n");
+										gets(fecha);
+										/* getchad(); */
+										printf("ingrese la hora de su reservacion :\n");
+										scanf("%d", &hora);
+										getchar();
+										if( hora >= 8 && hora <= 12){
+											strcpy(turno, "matutino");
+										}
+										if( hora >= 13 && hora <= 16){
+											strcpy(turno, "vespertino");
+										}
+										if( hora >= 17 && hora <= 20){
+											strcpy(turno, "nocturno");
+										}
+										printf("\n");
+										if(cantidadReservaciones > 0){
+											for( i = 0; i < cantidadReservaciones; i++){
+												
+												if(strcmp(telefono,reservaciones[i].telefono) == 0){
+													if(strcmp(fecha, reservaciones[i].fecha) == 0){
+														if(strcmp(turno,reservaciones[i].turno)==0){
+															printf("La reservacion ha sido encontrada. Datos:\n");
+															printf("Nombre: %s\n",reservaciones[i].nombre);
+															printf("Telefono: %s\n",reservaciones[i].telefono);
+															printf("Correo: %s\n",reservaciones[i].correo);
+															printf("Fecha: %s\n",reservaciones[i].fecha);
+															printf("Hora: %d\n",reservaciones[i].hora);
+															banderaConsulta = 1;
+															break;
+														}
+													}
+												}
+											}
+										}
+										else {
+											printf("No hay reservaciones para consultar\n");
+										}
+										if(banderaConsulta == 0){
+											printf("No se ha encontrado la reservación con los datos dados.\n");
+										}
+									break;
+									case '2':
+			
+										printf("Reservaciones existentes\n");
+										if(cantidadReservaciones > 0) {
+											for(i = 0; i < cantidadReservaciones; i++) {
+												printf("Reservacion %d: \n", i+1);
+												printf("Nombre: %s\n",reservaciones[i].nombre);
+												printf("Correo: %s\n",reservaciones[i].correo);
+												printf("Telefono: %s\n",reservaciones[i].telefono);
+												printf("Fecha: %s\n",reservaciones[i].fecha);
+												printf("Hora: %d\n",reservaciones[i].hora);
+												printf("Turno: %s\n",reservaciones[i].turno);
+												if(reservaciones[i].vigente == 1)
+													printf("La reservación está vigente\n\n");
+												else 
+													printf("La reservación no está vigente\n\n");
+											}
+										}
+										else {
+											printf("NO HAY RESERVACIONES EXISTENTES\n\n");
+										}
+										break;
+									case '3':
+										printf("ELIMINAR OPCIONES CADUCADAS:\n");
+										printf("Ingrese la hora actual:\n");
+										scanf("%d",&hora);
+										getchar();
+										if(hora<8 || hora>20)
+											printf("CERRADO:\n");
+										if( hora >= 8 && hora <= 12){
+											strcpy(turno, "matutino");
+										}
+										if( hora >= 13 && hora <= 16){
+											strcpy(turno, "vespertino");
+										}
+										if( hora >= 17 && hora <= 20){
+											strcpy(turno, "nocturno");
+										}
+										for(i=0;i<cantidadReservaciones;i++)
+										{
+											if(strcmp(turno,reservaciones[i].turno)==0){
+												if(reservaciones[i].vigente == 1){
+													reservaciones[i].vigente = 0;
+												}
+											}                                                                                                         
+										}
+										printf("Reservaciones canceladas.\n\n");		
+												
+										break;		
+		}//STICH 2
+		}while(opcion!='s');
 			break;
 		case 'V':
 			
@@ -267,63 +331,13 @@
 				printf("No se ha encontrado la reservación con los datos dados.\n");
 			}
 			break;
-		case 'S':
-		printf("SALIR");
-			break;
-		case 'F':
-			
-			printf("Reservaciones existentes\n");
-			if(cantidadReservaciones > 0) {
-				for(i = 0; i < cantidadReservaciones; i++) {
-					printf("Reservacion %d: \n", i+1);
-					printf("Nombre: %s\n",reservaciones[i].nombre);
-					printf("Correo: %s\n",reservaciones[i].correo);
-					printf("Telefono: %s\n",reservaciones[i].telefono);
-					printf("Fecha: %s\n",reservaciones[i].fecha);
-					printf("Hora: %d\n",reservaciones[i].hora);
-					printf("Turno: %s\n",reservaciones[i].turno);
-					if(reservaciones[i].vigente == 1)
-						printf("La reservación está vigente\n\n");
-					else 
-						printf("La reservación no está vigente\n\n");
-				}
-			}
-			else {
-				printf("NO HAY RESERVACIONES EXISTENTES\n\n");
-			}
-			break;
-		case 'E':
-			printf("ELIMINAR OPCIONES CADUCADAS:\n");
-			printf("Ingrese la hora actual:\n");
-			scanf("%d",&hora);
-			getchar();
-			if(hora<8 || hora>20)
-				printf("CERRADO:\n");
-			if( hora >= 8 && hora <= 12){
-				strcpy(turno, "matutino");
-			}
-			if( hora >= 13 && hora <= 16){
-				strcpy(turno, "vespertino");
-			}
-			if( hora >= 17 && hora <= 20){
-				strcpy(turno, "nocturno");
-			}
-			for(i=0;i<cantidadReservaciones;i++)
-			{
-				if(strcmp(turno,reservaciones[i].turno)==0){
-					if(reservaciones[i].vigente == 1){
-						reservaciones[i].vigente = 0;
-					}
-				}                                                                                                         
-			}
-			printf("Reservaciones canceladas.\n\n");		
-					
-			break;
+		
+		
 		default:
 		 printf("OPCION NO VALIDA:\n");
 		 break;
 		}
-		}while( opcion != '7');
+		}while( opcion != 'S');
 
 
 	return 0;
