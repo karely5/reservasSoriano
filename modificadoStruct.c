@@ -112,9 +112,9 @@
 				p_reservaciones = reservaciones;
 				for( i = 0; i < cantidadReservaciones; i++){
 					
-					if(strcmp(nombre,p_reservaciones->nombre) >0){
-						if(strcmp(fecha, p_reservaciones->fecha) > 0){
-							if(strcmp(turno,p_reservaciones->turno)>0){
+					if(strcmp(nombre,p_reservaciones->nombre) ==0){
+						if(strcmp(fecha, p_reservaciones->fecha) == 0){
+							if(strcmp(turno,p_reservaciones->turno)==0){
 								printf("Este turno ya ha sido apartado por este cliente\n");
 								banderaReservacion = 1;
 								
@@ -132,6 +132,10 @@
 							}
 						}
 					}
+					//else if(strcmp(fecha, p_reservaciones->fecha) == 0)
+					//{
+						
+					//}
 					
 				}
 			//}
@@ -147,6 +151,7 @@
 				reservaciones[cantidadReservaciones].vigente = 1;
 				cantidadReservaciones++;
 				printf("su reservacion ha sido agendada.\n\n");
+				cantidadReservaciones++;
 			}
 	}//aqui cierro el else de reservacion vacia
 			break;
@@ -378,26 +383,28 @@
 	//	 printf("OPCION NO VALIDA:\n");
 	//	 break;
 		}
-		}while( opcion != 'S'||opcion != 's');
+		}while( opcion != 'S'&&opcion != 's');
 		
 		//aqui ya salio del menu
-	for( i = 0; i < cantidadReservaciones; i++){
-												
-												if(strcmp(telefono,reservaciones[i].telefono) == 0){
-													if(strcmp(fecha, reservaciones[i].fecha) == 0){
-														if(strcmp(turno,reservaciones[i].turno)==0){
-															printf("La reservacion ha sido encontrada. Datos:\n");
-															printf("Nombre: %s\n",reservaciones[i].nombre);
-															printf("Telefono: %s\n",reservaciones[i].telefono);
-															printf("Correo: %s\n",reservaciones[i].correo);
-															printf("Fecha: %s\n",reservaciones[i].fecha);
-															printf("Hora: %d\n",reservaciones[i].hora);
-															banderaConsulta = 1;
-															break;
-														}
-													}
-												}
-											}
+		
+		printf("cantida de reservaciones %d",cantidadReservaciones);
+				printf("salio del ciclo:\n");
+	for( i = 0; i <= cantidadReservaciones; i++){
+			printf("entro el for\n");									
+			
+						printf("La reservacion ha sido encontrada. Datos:\n");
+						printf("Nombre: %s\n",reservaciones[i].nombre);
+						printf("Telefono: %s\n",reservaciones[i].telefono);
+						printf("Correo: %s\n",reservaciones[i].correo);
+						printf("Fecha: %s\n",reservaciones[i].fecha);
+						printf("Hora: %d\n",reservaciones[i].hora);
+						banderaConsulta = 1;
+						break;
+       				}
+							
+				
+		   
+											
 
 	return 0;
 }
