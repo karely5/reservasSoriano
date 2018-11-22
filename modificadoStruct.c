@@ -47,8 +47,9 @@
 	
 	opcion=getchar();
 	getchar();
+	opcion=toupper(opcion);
 	
-	switch (toupper(opcion)) {
+	switch (opcion) {
 		case 'A':	
 			if(cantidadReservaciones==0)
 			{//aqui se hace la primera reservacion
@@ -373,12 +374,30 @@
 			break;
 		
 		
-		default:
-		 printf("OPCION NO VALIDA:\n");
-		 break;
+	//	default:
+	//	 printf("OPCION NO VALIDA:\n");
+	//	 break;
 		}
-		}while( opcion != 'S');
-
+		}while( opcion != 'S'||opcion != 's');
+		
+		//aqui ya salio del menu
+	for( i = 0; i < cantidadReservaciones; i++){
+												
+												if(strcmp(telefono,reservaciones[i].telefono) == 0){
+													if(strcmp(fecha, reservaciones[i].fecha) == 0){
+														if(strcmp(turno,reservaciones[i].turno)==0){
+															printf("La reservacion ha sido encontrada. Datos:\n");
+															printf("Nombre: %s\n",reservaciones[i].nombre);
+															printf("Telefono: %s\n",reservaciones[i].telefono);
+															printf("Correo: %s\n",reservaciones[i].correo);
+															printf("Fecha: %s\n",reservaciones[i].fecha);
+															printf("Hora: %d\n",reservaciones[i].hora);
+															banderaConsulta = 1;
+															break;
+														}
+													}
+												}
+											}
 
 	return 0;
 }
