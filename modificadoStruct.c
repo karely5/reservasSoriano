@@ -36,20 +36,20 @@
 	do{
 	
 	printf("-------MENU DE OPCIONES-------:\n");
-	printf("1> Alta de reservacion:\n");
-	printf("2> Para dar de baja de reservacion:\n");
-	printf("3> Para consulta de reservacion:\n");
-	printf("4> Para checar vigencia de reservacion:\n");
-	printf("5> Para salir:\n");
-	printf("6> Para ver todas las reservaciones:\n");
-	printf("7> para dar de baja reservaciones anteriores:\n");
+	printf("A> Alta de reservacion:\n");
+	printf("B> Para dar de baja de reservacion:\n");
+	printf("C> Para consulta de reservacion:\n");
+	printf("V> Para checar vigencia de reservacion:\n");
+	printf("S> Para salir:\n");
+	printf("F> Para ver todas las reservaciones:\n");
+	printf("E> para dar de baja reservaciones anteriores:\n");
 	printf("\n");
 	
 	opcion=getchar();
 	getchar();
 	
-	switch (opcion) {
-		case '1':		
+	switch (toupper(opcion)) {
+		case 'A':		
 			
 			printf("alta de reservacion\n:");
 			printf("Haz tu reservacion\n");
@@ -109,7 +109,7 @@
 				printf("su reservacion ha sido agendada.\n\n");
 			}
 			break;
-		case '2':
+		case 'B':
 		
 			strcpy(telefono,"\0");
 			strcpy(fecha,"\0");
@@ -159,7 +159,7 @@
 				printf("No se ha encontrado la reservación con los datos dados.\n");
 			}
 			break;
-		case '3':
+		case 'C':
 		
 			strcpy(telefono,"");
 			strcpy(fecha,"");
@@ -213,7 +213,7 @@
 				printf("No se ha encontrado la reservación con los datos dados.\n");
 			}
 			break;
-		case '4':
+		case 'V':
 			
 			printf("vigencia de reservacion.");
 			strcpy(telefono,"");
@@ -267,10 +267,10 @@
 				printf("No se ha encontrado la reservación con los datos dados.\n");
 			}
 			break;
-		case '5':
+		case 'S':
 		printf("SALIR");
 			break;
-		case '6':
+		case 'F':
 			
 			printf("Reservaciones existentes\n");
 			if(cantidadReservaciones > 0) {
@@ -292,7 +292,7 @@
 				printf("NO HAY RESERVACIONES EXISTENTES\n\n");
 			}
 			break;
-		case '7':
+		case 'E':
 			printf("ELIMINAR OPCIONES CADUCADAS:\n");
 			printf("Ingrese la hora actual:\n");
 			scanf("%d",&hora);
